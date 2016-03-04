@@ -2,9 +2,18 @@
 
 const ChildProcess = require("../../lib/process").ChildProcess
 
-const proc = new ChildProcess((m, reply) => {
+const wait = (ms) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(), ms)
+  })
+}
+
+const proc = new ChildProcess(function*(m) {
   console.log(`${process.pid} doing some work.`)
-  reply({ got: m })
+
+  yield wait(3000)
+
+  return { got: m }
 })
 
 /*
