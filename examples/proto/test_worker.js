@@ -1,18 +1,20 @@
 "use strict"
 
-const ChildProcess = require("./lib/process").ChildProcess
+const ChildProcess = require("../../lib/process").ChildProcess
 
-const proc = new ChildProcess()
+const proc = new ChildProcess((m, reply) => {
+  console.log(`${process.pid} doing some work.`)
+  reply({ got: m })
+})
 
-console.log("Worker started")
-
+/*
 proc.on("message", (m, reply) => {
-  console.log("Got message:", m)
-  reply({ got: "it!", but: "it hates me" })
+  console.log(`${process.pid} doing some work.`)
+  reply({ got: m })
 })
 
 proc.on("shutdown", (m, reply) => {
-  console.log("Been asked to shutdown:", m)
-  reply({msg: "I'll die now kthxbai"})
+  reply({ msg: "I'll die now kthxbai" })
   process.exit(0)
 })
+*/

@@ -1,20 +1,27 @@
 "use strict"
 
-const Process = require("./lib/process").Process
+const Process = require("../../lib/process").Process
 
-const p = new Process("./test_worker.js")
+const procs = []
 
-p.send({ test: 42 })
-.then(msg => {
-  console.log("reply:", msg)
-  p.shutdown().then(msg => {
-    console.log(msg)
+console.log("Test begins!")
+
+for (let i = 0; i < 400; ++i) {
+  const p = new Process("./examples/proto/test_worker.js")
+
+  p.on("error", () => {}) // Swallow errors here.
+
+  p.send({ hello: i })
+  .then(msg => {
+    console.log(`Process ${i} replied:`, msg)
+
+    procs[i].shutdown()
   })
-})
-.catch(err => console.log(err))
+  .catch((err) => {
+    console.error(`Process ${i} had error:`, err.message)
+  })
 
-p.once("terminate", function(errno, message, handle) {
-  console.log("Terminated PID:", handle.pid)
-})
+  procs.push(p)
+}
 
-console.log("I ran!")
+console.log("Test ends!")
