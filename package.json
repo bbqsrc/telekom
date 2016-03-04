@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Brendan Molloy <brendan@bbqsrc.net>",
-  "license": "ISC",
+  "license": "BSD-2-Clause",
   "devDependencies": {
     "babel-eslint": "^5.0.0",
     "eslint": "^2.2.0",
