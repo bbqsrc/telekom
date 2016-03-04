@@ -22,10 +22,18 @@ p.send({ question: "meaning of universe?" }).then(msg => {
 // child.js
 const { ChildProcess } = require("telekom/process")
 
-const proc = new ChildProcess((msg, reply) => {
+const proc = new ChildProcess(msg => {
   console.log("Got message:", msg)
 
-  reply({ answer: 42 })
+  // Return what you want to reply, if anything
+  return { answer: 42 }
+})
+
+const proc2 = new ChildProcess(function*(msg) {
+  // You can use generators as well!
+  const res = yield someYieldable(msg)
+
+  return res
 })
 ```
 
