@@ -37,6 +37,25 @@ const proc2 = new ChildProcess(function*(msg) {
 })
 ```
 
+```javascript
+/* worker.js */
+const { ChildProcess } = require("telekom/process")
+
+// Simply multiple what is received
+const proc = new ChildProcess(value => value * 2)
+
+/* poolexample.js */
+const { Pool } = require("telekom/pool")
+
+const pool = new Pool("./path/to/worker.js") // Defaults to using number of CPUs
+const data = [1, 2, 3, 4]
+
+const res1 = yield pool.map(data) // => [2, 4, 6, 8]
+const res2 = yield pool.reduce(data, (cur, next) => {
+  return cur + next
+}, 0) // => 20
+```
+
 ## License
 
 BSD 2-clause license. See LICENSE.
