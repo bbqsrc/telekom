@@ -93,10 +93,7 @@ describe("Process", function() {
       }
 
       const work = procs.map((p, i) => p.send(i + 1))
-
-      const res = (yield work).reduce((cur, next) => {
-        return cur + next
-      }, 0)
+      const res = (yield work).reduce((cur, next) => cur + next, 0)
 
       expect(res).to.equal(2 + 4 + 6 + 8)
     } finally {
