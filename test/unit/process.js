@@ -11,8 +11,8 @@ const wait = (ms) => {
 
 require("co-mocha")
 
-const workerFn = "test/support/echo_worker.js"
-const times2Fn = "test/support/times2_worker.js"
+const workerFn = "../support/echo_worker.js"
+const times2Fn = "../support/times2_worker.js"
 
 describe("Process", function() {
   let proc = null
