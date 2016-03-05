@@ -1,0 +1,12 @@
+{
+  "extends": "../.eslintrc",
+  "env": {
+    "mocha": true
+  },
+  "rules": {
+    "no-unused-expressions": 0,
+    "max-nested-callbacks": [1, 5],
+    "prefer-arrow-callback": 0,
+    "func-names": 0
+  }
+}
