@@ -30,8 +30,6 @@ describe("Pool", function() {
     }
     const res = yield pool.map(data)
 
-    res.sort((a, b) => a > b ? 1 : -1)
-
     expect(res.length).to.equal(10000)
     expect(res[9999]).to.equal(20000)
     expect(res[0]).to.equal(2)
@@ -49,5 +47,15 @@ describe("Pool", function() {
     }, 0)
 
     expect(res).to.equal(data.reduce((cur, next) => cur + (next * 2), 0))
+  })
+
+  it("should support iterator", function* () {
+    const o = []
+
+    for (const val of pool.iterator([1, 2, 3, 4])) {
+      o.push(yield val)
+    }
+
+    expect(o.length).to.equal(4)
   })
 })
