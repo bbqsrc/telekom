@@ -1,18 +1,20 @@
 "use strict"
 
+const path = require("path")
+const expect = require("chai").expect
+
+require("co-mocha")
+
 const Process = require("../../lib/process").Process
 
-const expect = require("chai").expect
 const wait = (ms) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve(), ms)
   })
 }
 
-require("co-mocha")
-
-const workerFn = "../support/echo_worker.js"
-const times2Fn = "../support/times2_worker.js"
+const workerFn = path.join(__dirname, "../support/echo_worker")
+const times2Fn = path.join(__dirname, "../support/times2_worker")
 
 describe("Process", function() {
   let proc = null
@@ -50,7 +52,6 @@ describe("Process", function() {
     })
 
     yield wait(100)
-
     done()
   })
 
@@ -91,9 +92,7 @@ describe("Process", function() {
         procs.push(new Process(times2Fn))
       }
 
-      const work = procs.map((p, i) => {
-        return p.send(i + 1)
-      })
+      const work = procs.map((p, i) => p.send(i + 1))
 
       const res = (yield work).reduce((cur, next) => {
         return cur + next
