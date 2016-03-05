@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha test/unit/**/*.js"
+    "test": "mocha --harmony-proxies test/unit/**/*.js"
   },
   "author": "Brendan Molloy <brendan@bbqsrc.net>",
   "license": "BSD-2-Clause",
@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "co": "^4.6.0",
-    "extend": "^3.0.0"
+    "extend": "^3.0.0",
+    "harmony-reflect": "^1.4.2"
   },
   "private": true
 }
